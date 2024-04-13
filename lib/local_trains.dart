@@ -95,56 +95,6 @@ const List<List<String>> fromStations = <List<String>>[
     "Vashi",
     "Wadala Road"
   ],
-  // Trans-Harbour Line
-  [
-    "Ambernath",
-    "Badlapur",
-    "Bhivpuri Road",
-    "Diva",
-    "Dombivli",
-    "Karjat",
-    "Kopar",
-    "Kalyan",
-    "Mumbra",
-    "Neral",
-    "Shelu",
-    "Thakurli",
-    "Ulhasnagar",
-    "Vangani"
-  ],
-  // Vasai Road-Diva-Panvel Line
-  [
-    "Airoli",
-    "Belapur CBD",
-    "Bhiwandi Road",
-    "Ghansoli",
-    "Jui Nagar",
-    "Juchandra",
-    "Kaman Road",
-    "Khandeshwar",
-    "Kharghar",
-    "Kopar",
-    "Mumbra",
-    "Nerul",
-    "Panvel",
-    "Rabale",
-    "Sanpada",
-    "Seawoods-Darave",
-    "Targhar",
-    "Thane",
-    "Turbhe",
-    "Vashi"
-  ],
-  // Nerul/Belapur-Kharkopar Line (Navi Mumbai Metro)
-  [
-    "Bamandongri",
-    "Belapur CBD",
-    "Kharghar",
-    "Nerul",
-    "Sagar Sangam",
-    "Seawoods-Darave",
-    "Targhar"
-  ],
 ];
 const List<List<String>> toStations = <List<String>>[
   // Western Line
@@ -240,64 +190,11 @@ const List<List<String>> toStations = <List<String>>[
     "Vashi",
     "Wadala Road"
   ],
-  // Trans-Harbour Line
-  [
-    "Ambernath",
-    "Badlapur",
-    "Bhivpuri Road",
-    "Diva",
-    "Dombivli",
-    "Karjat",
-    "Kopar",
-    "Kalyan",
-    "Mumbra",
-    "Neral",
-    "Shelu",
-    "Thakurli",
-    "Ulhasnagar",
-    "Vangani"
-  ],
-  // Vasai Road-Diva-Panvel Line
-  [
-    "Airoli",
-    "Belapur CBD",
-    "Bhiwandi Road",
-    "Ghansoli",
-    "Jui Nagar",
-    "Juchandra",
-    "Kaman Road",
-    "Khandeshwar",
-    "Kharghar",
-    "Kopar",
-    "Mumbra",
-    "Nerul",
-    "Panvel",
-    "Rabale",
-    "Sanpada",
-    "Seawoods-Darave",
-    "Targhar",
-    "Thane",
-    "Turbhe",
-    "Vashi"
-  ],
-  // Nerul/Belapur-Kharkopar Line (Navi Mumbai Metro)
-  [
-    "Bamandongri",
-    "Belapur CBD",
-    "Kharghar",
-    "Nerul",
-    "Sagar Sangam",
-    "Seawoods-Darave",
-    "Targhar"
-  ],
 ];
 const List<String> lines = <String>[
   "Western Line",
   "Central Line",
   "Harbour Line",
-  "Trans-Harbour Line",
-  "Vasai Road-Diva-Panvel Line",
-  "Nerul/Belapur-Kharkopar Line (Navi Mumbai Metro)"
 ];
 
 class LocalTrains extends StatefulWidget {
@@ -306,7 +203,9 @@ class LocalTrains extends StatefulWidget {
   @override
   State<LocalTrains> createState() => _LocalTrainsState();
 }
-List<int> catIndexes = <int>[0, 1, 2, 3, 4,5];
+List<int> catIndexes = <int>[0, 1, 2];
+String fromStation = "";
+String toStation = "";
 class _LocalTrainsState extends State<LocalTrains> {
   String dropdownValue = fromStations[catIndexes[0]].first;
   int findIndex(List<String> l, String? toFind) {
@@ -321,21 +220,22 @@ class _LocalTrainsState extends State<LocalTrains> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(35, 104, 74, 1),
+      appBar: AppBar(title: Text("Local Trains", style: TextStyle(color: Colors.white),), backgroundColor: Color.fromRGBO(35, 104, 74, 1),),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Text("Select the line you wish to travel on"),
+              Text("Select the line you wish to travel on", style: TextStyle(color: Colors.white),),
               SizedBox(height: 10,),
               Container(
                 decoration: BoxDecoration(
-                  // color: widgetColors[index],
+                  color: Color.fromRGBO(188, 179, 121, 1),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: DropdownMenu<String>(
                   width: MediaQuery.of(context).size.width / (8 / 7),
-                  menuStyle: const MenuStyle(alignment: Alignment.center, backgroundColor: ),
+                  menuStyle: const MenuStyle(alignment: Alignment.center,),
                   initialSelection: lines[0],
                   onSelected: (String? value) {
                     setState(() {
@@ -355,11 +255,13 @@ class _LocalTrainsState extends State<LocalTrains> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
+              Text("Select the station you wish to travel from", style: TextStyle(color: Colors.white),),
+              SizedBox(height: 3,),
               Container(
                 decoration: BoxDecoration(
-                  // color: widgetColors[index],
+                  color: Color.fromRGBO(188, 179, 121, 1),
                   borderRadius: BorderRadius.circular(8.0),
                   ),
                 child: DropdownMenu<String>(
@@ -369,6 +271,7 @@ class _LocalTrainsState extends State<LocalTrains> {
                   onSelected: (String? value) {
                     setState(() {
                         dropdownValue = value!;
+                        fromStation = value;
                     });
                   },
                   dropdownMenuEntries: fromStations[catIndexes[0]]
@@ -379,20 +282,23 @@ class _LocalTrainsState extends State<LocalTrains> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
+              Text("Select the station you wish to travel to", style: TextStyle(color: Colors.white),),
+              SizedBox(height: 3,),
               Container(
                 decoration: BoxDecoration(
-                  // color: widgetColors[index],
+                  color: Color.fromRGBO(188, 179, 121, 1),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: DropdownMenu<String>(
                   width: MediaQuery.of(context).size.width / (8 / 7),
                   menuStyle: const MenuStyle(alignment: Alignment.center),
-                  initialSelection: fromStations[catIndexes[0]].first,
+                  initialSelection: fromStations[catIndexes[0]][1],
                   onSelected: (String? value) {
                     setState(() {
                       dropdownValue = value!;
+                      toStation = value;
                     });
                   },
                   dropdownMenuEntries: fromStations[catIndexes[0]]

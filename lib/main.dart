@@ -34,12 +34,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int karma = 0;
   List<IconData> icons = [
-      CupertinoIcons.bus,
       CupertinoIcons.train_style_one,
       CupertinoIcons.train_style_two,
       CupertinoIcons.car_detailed,
   ];
-  List<String> names = ["Bus", "Local Train", "Metro", "Electric Vehicles"];
+  List<String> names = ["Local Train", "Metro", "Electric Vehicles"];
   List<Widget> pages = [LocalTrains()];
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(20),
-                itemCount: 4,
+                itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
